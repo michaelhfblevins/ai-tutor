@@ -3,4 +3,4 @@ primaryColor="#7B8CDE"       # Soft blue-purple like distant nebulae
 backgroundColor="#0F1729"     # Deep space dark blue
 secondaryBackgroundColor="#1A2333"  # Slightly lighter space blue
 textColor="#E6E6E6"          # Soft white like starlight
-font="sans serif"
+font="serif"
