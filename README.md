@@ -1,2 +1,4 @@
-# ai-tutor
-A personal AI Tutor wit haccess to course materials, lectures, and textbooks.
+# Blevins AI Tutor
+A personal AI Tutor with access to course materials, lectures, and textbooks.
+
+#### [https://blevins-ai-tutor.streamlit.app/](https://blevins-ai-tutor.streamlit.app/)
