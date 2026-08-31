@@ -1,9 +1,8 @@
-# main.py
 import streamlit as st
 from anthropic import Anthropic
 
 st.set_page_config(
-    page_title="My Personal AI Tutor",
+    page_title="Blevins AI Tutor",
     page_icon="tutor_favicon.png",
     layout="centered"
 )
@@ -11,9 +10,16 @@ st.set_page_config(
 # Get API key
 api_key = st.secrets["ANTHROPIC_API_KEY"]
 
+# Logo
+st.logo("./images/cropped_tutor_favicon.png", size="large")
+
+# Display Tutor Profile Image
+tutor_image_url = "./images/tutor_favicon.png"
+col1, col2, col3 = st.columns((1,0.4,1.1))
+col2.image(tutor_image_url)
+
 # Title
-st.markdown("<h1 style='text-align: center; '>My Personal AI Tutor</h1>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: center; color: #808080;'>Michael Blevins</h4>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; '>Blevins AI Tutor</h1>", unsafe_allow_html=True)
 
 # Interaction Tips
 with st.expander("**Tips for Getting Started 🚀**"):
