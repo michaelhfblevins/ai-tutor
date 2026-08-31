@@ -1,8 +1,6 @@
 # main.py
 import streamlit as st
 from anthropic import Anthropic
-import os
-from dotenv import load_dotenv
 
 st.set_page_config(
     page_title="My Personal AI Tutor",
@@ -10,11 +8,8 @@ st.set_page_config(
     layout="centered"
 )
 
-# Load the .env file
-load_dotenv()
-
 # Get API key
-api_key = os.getenv('ANTHROPIC_API_KEY')
+api_key = st.secrets["ANTHROPIC_API_KEY"]
 
 # Title
 st.markdown("<h1 style='text-align: center; '>My Personal AI Tutor</h1>", unsafe_allow_html=True)
