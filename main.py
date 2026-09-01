@@ -35,12 +35,9 @@ with st.expander("**Tips for Getting Started 🚀**"):
     - Powers: `x^2`
     - Square root: `\sqrt{x}`
 - Example Prompts to Get Started:
-    - "Summarize Lecture 4 on Linear Regression"
-    - "Explain the math involved in the k-means clustering algorithm."
-    - "Can you recommend some papers to help me get started on my project on PCA?"
-    - "Which lecture covers Linear Regression with Input Uncertainties?"
-    - "What are some papers that discuss machine learning approaches for calibrating radial velocity measurements?"
-    - "How do I code prediction uncertainties in linear regression?"
+    - "What's the distance to a star with 0.1 arcsecond parallax?",
+    - "What did we learn about conversation histories in the API?",
+    - "Calculate the luminosity of a star with radius 3 solar radii and temperature 7000K"
     ''')
 
 if "messages" not in st.session_state:
