@@ -1,6 +1,6 @@
 [theme]
-primaryColor="#007435"  # Forest Green
-backgroundColor="#F5FFF9"  # Light Green
-secondaryBackgroundColor="#E0F2E9"  # Lighter pale green
-textColor="#003418"  # Dark Green
+primaryColor="#5C6BC0"  # Indigo 400
+backgroundColor="#000f30"  # Deep space dark blue
+secondaryBackgroundColor="#0F1729"  # Faded space blue
+textColor="#f2f2f2"  # Soft but prominent white
 font="serif"
