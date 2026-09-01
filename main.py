@@ -94,10 +94,19 @@ if prompt := st.chat_input("Message"):
         
         # Add assistant message
         st.session_state.messages.append({"role": "assistant", "content": response})
+
+        # Get TextBlocks from response
+        text_blocks = [
+        getattr(block, "text", None)
+        if not isinstance(block, dict)
+        else block.get("text")
+        for block in getattr(response, "content", [])
+        ]
+        text_blocks = [item for item in text_blocks if item]
         
         # Display response
         with st.chat_message("assistant", avatar=avatar["assistant"]):
             with st.empty():
-                for char in stream_text(response):
+                for char in stream_text(text_blocks):
                     st.markdown(rf"{char}")
                     time.sleep(0.01)
