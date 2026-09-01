@@ -42,12 +42,41 @@ with st.expander("**Tips for Getting Started 🚀**"):
     ''')
 
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages = [{"role": "assistant", "content": """Hello, I'm your personal tutor! I can assist with:
 
-# Display messages
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
-        st.write(msg["content"])
+- Physics concepts and theoretical explanations
+- Data analysis and coding support
+- Working through practice problems
+
+How can I help you today?"""}]
+
+# Function to stream text word by word
+def stream_text(text):
+    sentence = ""
+    for letter in text:
+        sentence += letter
+        yield sentence
+
+if "stream_init_msg" not in st.session_state:
+    st.session_state.stream_init_msg = True
+
+# Display conversation
+if len(st.session_state.messages)>0:
+    if st.session_state.stream_init_msg:
+        msg = st.session_state.messages[0]
+        with st.chat_message(msg["role"], avatar=avatar[msg["role"]]):
+            intro_msg = rf"{msg["content"]}"
+            with st.empty():
+                for char in stream_text(intro_msg):
+                    st.markdown(char)
+                    time.sleep(0.01)
+        st.session_state.stream_init_msg = False
+    else:
+        for msg in st.session_state.messages:
+            if msg["role"] == "user":
+                st.chat_message(msg["role"], avatar=avatar[msg["role"]]).markdown(escape_markdown(rf"{msg["content"]}"))
+            else:
+                st.chat_message(msg["role"], avatar=avatar[msg["role"]]).markdown(rf"{msg["content"]}")
 
 # Input and response
 if prompt := st.chat_input("Message"):
@@ -69,6 +98,9 @@ if prompt := st.chat_input("Message"):
         answer = next(block.text for block in response.content if block.type == "text")
         st.session_state.messages.append({"role": "assistant", "content": answer})
         
-        # Display
+        # Display response
         with st.chat_message("assistant", avatar=avatar["assistant"]):
-            st.write(answer)
+            with st.empty():
+                for char in stream_text(response):
+                    st.markdown(rf"{char}")
+                    time.sleep(0.01)
