@@ -2,6 +2,7 @@ import streamlit as st
 from anthropic import Anthropic
 import time
 from app_utils.save_to_html import escape_markdown
+from ..app_utils import complete_assistant
 
 st.set_page_config(
     page_title="Blevins AI Tutor",
@@ -10,6 +11,7 @@ st.set_page_config(
 )
 avatar = {"user": "./images/student_avatar.png",
           "assistant": "./images/cropped_tutor_favicon.png"}
+
 # Get API key
 api_key = st.secrets["ANTHROPIC_API_KEY"]
 
@@ -88,20 +90,14 @@ if prompt := st.chat_input("Message"):
         # Use a spinner to indicate LLM processing
         with st.spinner('Thinking...'):
             # Get Claude response
-            client = Anthropic(api_key=api_key)
-            response = client.messages.create(
-                model="claude-sonnet-5",
-                max_tokens=200,
-                messages=st.session_state.messages
-            )
+            response = complete_assistant.complete_assistat(st.session_state.messages)
         
         # Add assistant message
-        answer = next(block.text for block in response.content if block.type == "text")
-        st.session_state.messages.append({"role": "assistant", "content": answer})
+        st.session_state.messages.append({"role": "assistant", "content": response})
         
         # Display response
         with st.chat_message("assistant", avatar=avatar["assistant"]):
             with st.empty():
-                for char in stream_text(answer):
+                for char in stream_text(response):
                     st.markdown(rf"{char}")
                     time.sleep(0.01)
