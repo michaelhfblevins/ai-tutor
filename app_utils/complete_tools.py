@@ -1,6 +1,6 @@
 import numpy as np
 from sentence_transformers import SentenceTransformer
-from ..lectures import LLM_API_Basics_STIG.md
+from lectures import LLM_API_Basics_STIG.md
 
 
 # Define function to calculate distance given parallax
