@@ -2,7 +2,7 @@ import streamlit as st
 from anthropic import Anthropic
 import time
 from app_utils.save_to_html import escape_markdown
-from ..app_utils import complete_assistant
+from app_utils.complete_assistant import complete_assistant
 
 st.set_page_config(
     page_title="Blevins AI Tutor",
@@ -90,7 +90,7 @@ if prompt := st.chat_input("Message"):
         # Use a spinner to indicate LLM processing
         with st.spinner('Thinking...'):
             # Get Claude response
-            response = complete_assistant.complete_assistat(st.session_state.messages)
+            response = complete_assistant(st.session_state.messages)
         
         # Add assistant message
         st.session_state.messages.append({"role": "assistant", "content": response})
