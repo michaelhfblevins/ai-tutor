@@ -6,7 +6,8 @@ st.set_page_config(
     page_icon="tutor_favicon.png",
     layout="centered"
 )
-
+avatar = {"user": "./images/student_avatar.png",
+          "assistant": "./images/cropped_tutor_favicon.png"}
 # Get API key
 api_key = st.secrets["ANTHROPIC_API_KEY"]
 
@@ -53,19 +54,21 @@ if prompt := st.chat_input("Message"):
     if api_key:
         # Add user message
         st.session_state.messages.append({"role": "user", "content": prompt})
-        
-        # Get Claude response
-        client = Anthropic(api_key=api_key)
-        response = client.messages.create(
-            model="claude-sonnet-5",
-            max_tokens=200,
-            messages=st.session_state.messages
-        )
+
+        # Use a spinner to indicate LLM processing
+        with st.spinner('Thinking...'):
+            # Get Claude response
+            client = Anthropic(api_key=api_key)
+            response = client.messages.create(
+                model="claude-sonnet-5",
+                max_tokens=200,
+                messages=st.session_state.messages
+            )
         
         # Add assistant message
         answer = next(block.text for block in response.content if block.type == "text")
         st.session_state.messages.append({"role": "assistant", "content": answer})
         
         # Display
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar=avatar["assistant']):
             st.write(answer)
