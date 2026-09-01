@@ -22,16 +22,7 @@ def complete_assistant(messages):
 
     # Check if Claude needs a tool
     if initial_response.stop_reason != "tool_use":
-        # Some SDKs return plain dicts when running offline; fall back to repr
-        # repr() returns a string representation of the object for debugging
-        text_blocks = [
-            getattr(block, "text", None)
-            if not isinstance(block, dict)
-            else block.get("text")
-            for block in getattr(initial_response, "content", [])
-        ]
-        text_blocks = [item for item in text_blocks if item]
-        return "".join(text_blocks).strip() or repr(initial_response)
+        return initial_response.content
 
     # Execute the requested tool
     tool_use = initial_response.content[-1]
@@ -72,15 +63,4 @@ def complete_assistant(messages):
         messages=messages
     )
 
-    text_blocks = [
-        getattr(block, "text", None)
-        if not isinstance(block, dict)
-        else block.get("text")
-        for block in getattr(final_response, "content", [])
-    ]
-    text_blocks = [item for item in text_blocks if item]
-    if text_blocks:
-        return "".join(text_blocks).strip()
-
-    # As a fallback, provide the raw response so readers know to run locally
-    return repr(final_response)
+    return final_response.content
