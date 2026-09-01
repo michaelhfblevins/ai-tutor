@@ -190,7 +190,7 @@ def search_course_materials(question, max_results=2):
     }
 
 # Complete tools list combining calculations and search
-complete_tools = [
+complete_tools_list = [
     {
         "name": "parallax_to_distance",
         "description": "Calculate stellar distance from parallax measurement",
