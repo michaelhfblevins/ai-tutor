@@ -52,23 +52,24 @@ def complete_assistant(messages):
     else:
         result = {"error": f"Unknown function: {tool_use.name}"}
 
+    # Append initial response tool use to messages
+    messages.append({"role": "assistant", "content": initial_response.content})
+    messages.append({
+                        "role": "user",
+                        "content": [{
+                            "type": "tool_result",
+                            "tool_use_id": tool_use.id,
+                            "content": str(result)
+                        }]
+                     }
+                    )
+    
     # Get natural language response
     final_response = client.messages.create(
         model="claude-sonnet-5",
         max_tokens=400,
         tools=complete_tools_list,
-        messages=[
-            {"role": "user", "content": question},
-            {"role": "assistant", "content": initial_response.content},
-            {
-                "role": "user",
-                "content": [{
-                    "type": "tool_result",
-                    "tool_use_id": tool_use.id,
-                    "content": str(result)
-                }]
-            }
-        ]
+        messages=messages
     )
 
     text_blocks = [
