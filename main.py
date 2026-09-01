@@ -70,5 +70,5 @@ if prompt := st.chat_input("Message"):
         st.session_state.messages.append({"role": "assistant", "content": answer})
         
         # Display
-        with st.chat_message("assistant", avatar=avatar["assistant']):
+        with st.chat_message("assistant", avatar=avatar["assistant"]):
             st.write(answer)
