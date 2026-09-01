@@ -103,6 +103,6 @@ if prompt := st.chat_input("Message"):
         # Display response
         with st.chat_message("assistant", avatar=avatar["assistant"]):
             with st.empty():
-                for char in stream_text(response):
+                for char in stream_text(answer):
                     st.markdown(rf"{char}")
                     time.sleep(0.01)
