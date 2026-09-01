@@ -5,12 +5,11 @@ from app_utils.complete_tools import *
 # Get API key
 api_key = st.secrets["ANTHROPIC_API_KEY"]
 
-def complete_assistant(question):
+def complete_assistant(messages):
     """
     Complete AI assistant that can calculate and search.
     Always returns a natural language answer.
     """
-    print(f"Processing: {question}")
 
     # Get Claude's initial response
     client = Anthropic(api_key=api_key)
@@ -18,7 +17,7 @@ def complete_assistant(question):
         model="claude-sonnet-5",
         max_tokens=300,
         tools=complete_tools_list,
-        messages=[{"role": "user", "content": question}]
+        messages=messages
     )
 
     # Check if Claude needs a tool
@@ -36,7 +35,6 @@ def complete_assistant(question):
 
     # Execute the requested tool
     tool_use = initial_response.content[-1]
-    print(f"  → Using tool: {tool_use.name}")
 
     # Execute the appropriate function
     if tool_use.name == "parallax_to_distance":
