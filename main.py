@@ -83,8 +83,10 @@ if len(st.session_state.messages)>0:
 # Input and response
 if prompt := st.chat_input("Message"):
     if api_key:
+        
         # Add user message
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.chat_message("user", avatar=avatar["user"]).markdown(escape_markdown(prompt))
 
         # Use a spinner to indicate LLM processing
         with st.spinner('Thinking...'):
