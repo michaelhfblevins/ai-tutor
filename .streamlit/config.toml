@@ -1,6 +1,6 @@
 [theme]
 primaryColor="#5C6BC0"  # Indigo 400
-backgroundColor="#000f30"  # Deep space dark blue
-secondaryBackgroundColor="#0F1729"  # Faded space blue
+backgroundColor="#000c26"  # Deep space dark blue
+secondaryBackgroundColor="#0d1529"  # Faded space blue
 textColor="#f2f2f2"  # Soft but prominent white
 font="serif"
