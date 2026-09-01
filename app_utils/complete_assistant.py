@@ -17,7 +17,7 @@ def complete_assistant(question):
     initial_response = client.messages.create(
         model="claude-sonnet-5",
         max_tokens=300,
-        tools=complete_tools,
+        tools=complete_tools.complete_tools_list,
         messages=[{"role": "user", "content": question}]
     )
 
