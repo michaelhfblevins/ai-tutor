@@ -1,6 +1,5 @@
 import numpy as np
 from sentence_transformers import SentenceTransformer
-from lectures import LLM_API_Basics_STIG.md
 
 
 # Define function to calculate distance given parallax
@@ -58,7 +57,7 @@ def stellar_luminosity(radius_solar, temperature_k):
 # **------------------------------ RAG Functions ------------------------------**
 
 # Read in the lecture files
-with open('LLM_API_Basics_STIG.md', 'r') as f:
+with open('lectures/LLM_API_Basics_STIG.md', 'r') as f:
     LLM_API_Basics_STIG = f.read()
 
 # Define function to perform simple section-based chunking
