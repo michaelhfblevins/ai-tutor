@@ -1,5 +1,7 @@
 import streamlit as st
 from anthropic import Anthropic
+import time
+from app_utils.save_to_html import escape_markdown
 
 st.set_page_config(
     page_title="Blevins AI Tutor",
