@@ -1,5 +1,6 @@
 from anthropic import Anthropic
 import streamlit as st
+import complete_tools
 
 # Get API key
 api_key = st.secrets["ANTHROPIC_API_KEY"]
