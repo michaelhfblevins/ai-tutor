@@ -91,14 +91,14 @@ if prompt := st.chat_input("Message"):
         with st.spinner('Thinking...'):
             # Get Claude response
             response = complete_assistant(st.session_state.messages)
-        
-        # Add assistant message
-        st.session_state.messages.append({"role": "assistant", "content": response})
 
         # Get text from response
         for block in response:
             if block.type == 'text':
                 response_text = block.text
+
+        # Add assistant message
+        st.session_state.messages.append({"role": "assistant", "content": response_text})
         
         # Display response
         with st.chat_message("assistant", avatar=avatar["assistant"]):
