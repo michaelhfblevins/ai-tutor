@@ -95,23 +95,9 @@ if prompt := st.chat_input("Message"):
         # Add assistant message
         st.session_state.messages.append({"role": "assistant", "content": response})
 
-        # # Get TextBlocks from response
-        # text_blocks = [
-        # getattr(block, "text", None)
-        # if not isinstance(block, dict)
-        # else block.get("text")
-        # for block in getattr(response, "content", [])
-        # ]
-        # text_blocks = [item for item in text_blocks if item]
-
-        # # Get text from TextBlock
-        # for block in text_blocks:
-        #     if block.type == "text":
-        #         text = block.text
-
         # Get text from response
         for block in response:
-            if block.type == "text":
+            if block.type == 'text':
                 response_text = block.text
         
         # Display response
