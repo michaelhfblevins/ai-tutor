@@ -105,7 +105,9 @@ if prompt := st.chat_input("Message"):
         text_blocks = [item for item in text_blocks if item]
 
         # Get text from TextBlock
-        text = block.text for block in text_blocks if block.type == "text"
+        for block in text_blocks:
+            if block.type == "text":
+                text = block.text
         
         # Display response
         with st.chat_message("assistant", avatar=avatar["assistant"]):
