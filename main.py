@@ -79,8 +79,8 @@ if len(st.session_state.messages)>0:
             elif isinstance(msg["content"], list):
                 text = ""
                 for block in msg["content"]:
-                    if block.type == "text":
-                        text += block.text
+                    if block["type"] == "text":
+                        text += block["type"]
             else:
                 continue
             
