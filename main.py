@@ -103,10 +103,14 @@ if prompt := st.chat_input("Message"):
         for block in getattr(response, "content", [])
         ]
         text_blocks = [item for item in text_blocks if item]
+
+        # Get text from TextBlock
+        text = block.text for block in text_blocks if block.type == "text"
         
         # Display response
         with st.chat_message("assistant", avatar=avatar["assistant"]):
             with st.empty():
-                for char in stream_text(text_blocks):
+                for char in stream_text(text):
                     st.markdown(rf"{char}")
                     time.sleep(0.01)
+        st.rerun()
