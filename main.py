@@ -42,14 +42,18 @@ with st.expander("**Tips for Getting Started 🚀**"):
     - "Calculate the luminosity of a star with radius 3 solar radii and temperature 7000K"
     ''')
 
-if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "assistant", "content": """Hello, I'm your personal tutor! I can assist with:
+init_msg = """Hello, I'm your personal tutor! I can assist with:
 
 - Physics concepts and theoretical explanations
 - Data analysis and coding support
 - Working through practice problems
 
-How can I help you today?"""}]
+How can I help you today?"""
+
+if "messages" not in st.session_state:
+    st.session_state.messages = [{"role": "assistant", "content": init_msg}]
+if "conversation" not in st.session_state:
+    st.session_state.conversation = [{"role": "assistant", "content": init_msg}]
 
 # Function to stream text word by word
 def stream_text(text):
@@ -74,41 +78,23 @@ if len(st.session_state.messages)>0:
         st.session_state.stream_init_msg = False
     else:
         for msg in st.session_state.messages:
-            if isinstance(msg["content"], str):
-                text = msg["content"]
-            elif isinstance(msg["content"], list):
-                text = ""
-                for block in msg["content"]:
-                    if block["type"] == "text":
-                        text += block["type"]
-            else:
-                continue
-            
             if msg["role"] == "user":
-                st.chat_message(msg["role"], avatar=avatar[msg["role"]]).markdown(escape_markdown(rf"{text}"))
+                st.chat_message(msg["role"], avatar=avatar[msg["role"]]).markdown(escape_markdown(rf"{msg["content"]}"))
             else:
-                st.chat_message(msg["role"], avatar=avatar[msg["role"]]).markdown(rf"{text}")
+                st.chat_message(msg["role"], avatar=avatar[msg["role"]]).markdown(rf"{msg["content"]}")
 
 # Input and response
 if prompt := st.chat_input("Message"):
     if api_key:
-        
         # Add user message
         st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.conversation.append({"role": "user", "content": prompt})
         st.chat_message("user", avatar=avatar["user"]).markdown(escape_markdown(prompt))
 
         # Use a spinner to indicate LLM processing
         with st.spinner('Thinking...'):
             # Get Claude response
-            response = complete_assistant(st.session_state.messages)
-
-        # Get text from response
-        for block in response:
-            if block.type == "text":
-                response_text = block.text
-                break
-            else:
-                response_text = repr(response)
+            response_text, st.session_state.conversation = complete_assistant(st.session_state.conversation)
 
         # Add assistant message
         st.session_state.messages.append({"role": "assistant", "content": response_text})
