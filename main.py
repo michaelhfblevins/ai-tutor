@@ -110,7 +110,7 @@ if prompt := st.chat_input("Message"):
         #         text = block.text
 
         # Get text from response
-        for block in response.content:
+        for block in response:
             if block.type == "text":
                 response_text = block.text
         
