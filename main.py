@@ -74,10 +74,11 @@ if len(st.session_state.messages)>0:
         st.session_state.stream_init_msg = False
     else:
         for msg in st.session_state.messages:
-            if msg["role"] == "user":
-                st.chat_message(msg["role"], avatar=avatar[msg["role"]]).markdown(escape_markdown(rf"{msg["content"]}"))
-            else:
-                st.chat_message(msg["role"], avatar=avatar[msg["role"]]).markdown(rf"{msg["content"]}")
+            if msg["content"]["type"] == "text":
+                if msg["role"] == "user":
+                    st.chat_message(msg["role"], avatar=avatar[msg["role"]]).markdown(escape_markdown(rf"{msg["content"]}"))
+                else:
+                    st.chat_message(msg["role"], avatar=avatar[msg["role"]]).markdown(rf"{msg["content"]}")
 
 # Input and response
 if prompt := st.chat_input("Message"):
