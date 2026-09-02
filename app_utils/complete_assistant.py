@@ -5,10 +5,11 @@ from app_utils.complete_tools import *
 # Get API key
 api_key = st.secrets["ANTHROPIC_API_KEY"]
 
-def complete_assistant(messages):
+def complete_assistant(conversation):
     """
     Complete AI assistant that can calculate and search.
-    Always returns a natural language answer.
+    Takes the full conversation (including any prior tool_use/tool_result blocks),
+    mutates it with this turn's exchange, and returns (final_response_text, updated_conversation).
     """
 
     # Get Claude's initial response
@@ -17,12 +18,16 @@ def complete_assistant(messages):
         model="claude-sonnet-5",
         max_tokens=300,
         tools=complete_tools_list,
-        messages=messages
+        messages=conversation
     )
 
     # Check if Claude needs a tool
     if initial_response.stop_reason != "tool_use":
-        return initial_response.content
+        conversation.append({"role": "assistant", "content": initial_response.content})
+        final_response_text = "".join(
+            block.text for block in initial_response.content if block.type == "text"
+        )
+        return final_response_text, conversation
 
     # Execute the requested tool
     tool_use = initial_response.content[-1]
@@ -43,24 +48,27 @@ def complete_assistant(messages):
     else:
         result = {"error": f"Unknown function: {tool_use.name}"}
 
-    # Append initial response tool use to messages
-    messages.append({"role": "assistant", "content": initial_response.content})
-    messages.append({
-                        "role": "user",
-                        "content": [{
-                            "type": "tool_result",
-                            "tool_use_id": tool_use.id,
-                            "content": str(result)
-                        }]
-                     }
-                    )
+    # Append initial response tool use to conversation
+    conversation.append({"role": "assistant", "content": initial_response.content})
+    conversation.append({
+        "role": "user",
+        "content": [{
+            "type": "tool_result",
+            "tool_use_id": tool_use.id,
+            "content": str(result)
+        }]
+    })
     
     # Get natural language response
     final_response = client.messages.create(
         model="claude-sonnet-5",
         max_tokens=400,
         tools=complete_tools_list,
-        messages=messages
+        messages=conversation
     )
 
-    return final_response.content
+    conversation.append({"role": "assistant", "content": final_response.content})
+    final_response_text = "".join(
+        block.text for block in final_response.content if block.type == "text"
+    )
+    return final_response_text, conversation
