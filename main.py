@@ -96,6 +96,9 @@ if prompt := st.chat_input("Message"):
         for block in response:
             if block.type == 'text':
                 response_text = block.text
+                break
+            else:
+                response_text = repr(response)
 
         # Add assistant message
         st.session_state.messages.append({"role": "assistant", "content": response_text})
