@@ -1,12 +1,23 @@
 [theme]
-primaryColor="#5C6BC0"  # Indigo 400
-backgroundColor="lavender"  # Deep space dark blue
-secondaryBackgroundColor="#cfcfe8"  # Faded space blue #0b1326
-textColor="#000000"  # Soft white blue #dfe2f0
+base = "light"
 font = "Lora:https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
 headingFont = "Castoro:https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap"
 codeFont = "'Fira Code':https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap"
 baseFontSize=17
-codeTextColor="black"
-codeBackgroundColor="#fafafa"
 codeFontSize="0.875rem"
+
+[theme.light]
+primaryColor="#5C6BC0"  # Indigo 400
+backgroundColor="#f5f0f7"  # Pale lavender
+secondaryBackgroundColor="#e7e1eb" # Light grey lavender
+textColor="black"
+codeTextColor="black"
+codeBackgroundColor="#fcfcfc"
+
+[theme.dark]
+primaryColor="#5C6BC0"  # Indigo 400
+backgroundColor="#060b17"  # Deep space dark blue
+secondaryBackgroundColor="#0d1424"  # Lighter space blue
+textColor="#dfe2f0"  # Soft white blue
+codeTextColor="#11bd42" # Code green
+codeBackgroundColor="#12151c" # Dark grey blue

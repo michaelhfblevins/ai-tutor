@@ -10,7 +10,7 @@ st.set_page_config(
     layout="centered"
 )
 avatar = {"user": "./images/student-icon.png",
-          "assistant": "./images/cropped_tutor_favicon.png"}
+          "assistant": "./images/tutor_avatar.png"}
 
 # Inject custom CSS
 st.html(
@@ -28,7 +28,7 @@ st.html(
     }
 
     [data-testid="stHeadingWithActionElements"] h2 {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
     }
 
     [data-testid="stHeadingWithActionElements"] h3 {
