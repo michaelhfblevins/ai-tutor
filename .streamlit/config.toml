@@ -1,6 +1,12 @@
 [theme]
 primaryColor="#5C6BC0"  # Indigo 400
-backgroundColor="#030619"  # Deep space dark blue
-secondaryBackgroundColor="#0b1326"  # Faded space blue
-textColor="#dfe2f0"  # Soft white blue
-font="serif"
+backgroundColor="lavender"  # Deep space dark blue
+secondaryBackgroundColor="#cfcfe8"  # Faded space blue #0b1326
+textColor="#000000"  # Soft white blue #dfe2f0
+font = "Lora:https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+headingFont = "Castoro:https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap"
+codeFont = "'Fira Code':https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap"
+baseFontSize=17
+codeTextColor="black"
+codeBackgroundColor="#fafafa"
+codeFontSize="0.875rem"

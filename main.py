@@ -6,11 +6,37 @@ from app_utils.complete_assistant import complete_assistant
 
 st.set_page_config(
     page_title="Blevins AI Tutor",
-    page_icon="tutor_favicon.png",
+    page_icon="./images/cropped_tutor_favicon.png",
     layout="centered"
 )
-avatar = {"user": "./images/student_avatar.png",
+avatar = {"user": "./images/student-icon.png",
           "assistant": "./images/cropped_tutor_favicon.png"}
+
+# Inject custom CSS
+st.html(
+    """
+    <style>
+    /* Force the image inside to fill the new container size */
+    [data-testid="stChatMessage"] img {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        object-fit: cover;
+    }
+
+    [data-testid="stMarkdownContainer"] code {
+        font-size: 0.85rem;
+    }
+
+    [data-testid="stHeadingWithActionElements"] h2 {
+        font-size: 1.75rem;
+    }
+
+    [data-testid="stHeadingWithActionElements"] h3 {
+        font-size: 1.25rem;
+    }
+    </style>
+    """
+)
 
 # Get API key
 api_key = st.secrets["ANTHROPIC_API_KEY"]
